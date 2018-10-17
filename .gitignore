@@ -51,7 +51,7 @@ Temporary Items
 
 # IntelliJ IDEA
 **/.idea/
-**/.iml
+**/*.iml
 
 # maven build folder
 **/target/
