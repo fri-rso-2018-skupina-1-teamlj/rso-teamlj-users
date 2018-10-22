@@ -7,10 +7,10 @@ import javax.persistence.*;
 import java.time.Instant;
 import java.util.List;
 
-@Entity(name = "user")
+@Entity(name = "userTable")
 @NamedQueries(value =
         {
-                @NamedQuery(name = "User.getAll", query = "SELECT c FROM user c")
+                @NamedQuery(name = "User.getAll", query = "SELECT c FROM userTable c")
         })
 public class User {
 

@@ -11,13 +11,15 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.util.List;
-
+import java.util.logging.Logger;
 
 @RequestScoped
 @Path("/users")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class UsersResource {
+
+    private Logger log = Logger.getLogger(UsersResource.class.getName());
 
     @Inject
     private UsersBean usersBean;

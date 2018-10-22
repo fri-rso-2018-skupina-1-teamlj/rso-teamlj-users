@@ -67,11 +67,12 @@ public class UsersBean {
         User user = em.find(User.class, userId);
 
         if (user == null) {
+            log.warning("user null");
             throw new NotFoundException();
         }
 
-        List<Order> orders = usersBean.getOrders(userId);
-        user.setOrders(orders);
+//        List<Order> orders = usersBean.getOrders(userId);
+//        user.setOrders(orders);
 
         return user;
     }
