@@ -9,7 +9,8 @@ kumuluzee:
       port: 8080
   datasources:
     - jndi-name: jdbc/UsersDS
-      connection-url: jdbc:postgresql://localhost:5432/userTable
+      # USE LOCAL IP for now
+      connection-url: jdbc:postgresql://192.168.1.6:5432/userTable
       username: dbuser
       password: postgres
       max-pool-size: 20
