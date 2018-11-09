@@ -26,6 +26,8 @@ public class User {
 
     private String address;
 
+    private boolean inUse;
+
     @Column(name = "date_of_birth")
     private Instant dateOfBirth;
 
@@ -63,6 +65,15 @@ public class User {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    public boolean getInUse() {
+        return inUse;
+    }
+
+    public void setInUse(boolean inUse) {
+        this.inUse = inUse;
+    }
+
 
     public Instant getDateOfBirth() {
         return dateOfBirth;
