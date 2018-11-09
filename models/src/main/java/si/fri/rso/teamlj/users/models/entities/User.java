@@ -1,7 +1,7 @@
 package si.fri.rso.teamlj.users.models.entities;
 
 import org.eclipse.persistence.annotations.UuidGenerator;
-import si.fri.rso.teamlj.users.models.dtos.Order;
+import si.fri.rso.teamlj.users.models.dtos.BikeRent;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -10,7 +10,7 @@ import java.util.List;
 @Entity(name = "userTable")
 @NamedQueries(value =
         {
-                @NamedQuery(name = "User.getAll", query = "SELECT c FROM userTable c")
+                @NamedQuery(name = "User.getAll", query = "SELECT u FROM userTable u")
         })
 public class User {
 
@@ -30,7 +30,7 @@ public class User {
     private Instant dateOfBirth;
 
     @Transient
-    private List<Order> orders;
+    private List<BikeRent> rents;
 
     public Integer getId() {
         return id;
@@ -72,11 +72,11 @@ public class User {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public List<Order> getOrders() {
-        return orders;
+    public List<BikeRent> getRents() {
+        return rents;
     }
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
+    public void setRents(List<BikeRent> rents) {
+        this.rents = rents;
     }
 }

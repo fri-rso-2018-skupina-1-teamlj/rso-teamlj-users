@@ -3,7 +3,7 @@ package si.fri.rso.teamlj.users.services;
 
 import com.kumuluz.ee.rest.beans.QueryParameters;
 import com.kumuluz.ee.rest.utils.JPAUtils;
-import si.fri.rso.teamlj.users.models.dtos.Order;
+import si.fri.rso.teamlj.users.models.dtos.BikeRent;
 import si.fri.rso.teamlj.users.models.entities.User;
 
 import javax.annotation.PostConstruct;
@@ -71,8 +71,8 @@ public class UsersBean {
             throw new NotFoundException();
         }
 
-//        List<Order> orders = usersBean.getOrders(userId);
-//        user.setOrders(orders);
+        List<BikeRent> rents = usersBean.getRents(userId);
+        user.setRents(rents);
 
         return user;
     }
@@ -92,15 +92,15 @@ public class UsersBean {
 
     public User putUser(String userId, User user) {
 
-        User c = em.find(User.class, userId);
+        User u = em.find(User.class, userId);
 
-        if (c == null) {
+        if (u == null) {
             return null;
         }
 
         try {
             beginTx();
-            user.setId(c.getId());
+            user.setId(u.getId());
             user = em.merge(user);
             commitTx();
         } catch (Exception e) {
@@ -128,12 +128,12 @@ public class UsersBean {
         return true;
     }
 
-    public List<Order> getOrders(Integer userId) {
+    public List<BikeRent> getRents(Integer userId) {
 
         try {
             return httpClient
-                    .target(baseUrl + "/v1/orders?where=userId:EQ:" + userId)
-                    .request().get(new GenericType<List<Order>>() {
+                    .target(baseUrl + "/v1/rents?where=userId:EQ:" + userId)
+                    .request().get(new GenericType<List<BikeRent>>() {
                     });
         } catch (WebApplicationException | ProcessingException e) {
             log.severe(e.getMessage());
@@ -155,10 +155,5 @@ public class UsersBean {
     private void rollbackTx() {
         if (em.getTransaction().isActive())
             em.getTransaction().rollback();
-    }
-
-    public void loadOrder(Integer n) {
-
-
     }
 }
