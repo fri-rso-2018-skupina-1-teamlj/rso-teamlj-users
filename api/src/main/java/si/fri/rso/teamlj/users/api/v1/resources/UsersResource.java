@@ -1,7 +1,7 @@
 package si.fri.rso.teamlj.users.api.v1.resources;
 
 import si.fri.rso.teamlj.users.models.entities.User;
-import si.fri.rso.teamlj.users.services.UsersBean;
+import si.fri.rso.teamlj.users.services.beans.UsersBean;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;

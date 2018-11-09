@@ -1,10 +1,12 @@
-package si.fri.rso.teamlj.users.services;
+package si.fri.rso.teamlj.users.services.beans;
 
 
+import com.kumuluz.ee.discovery.annotations.DiscoverService;
 import com.kumuluz.ee.rest.beans.QueryParameters;
 import com.kumuluz.ee.rest.utils.JPAUtils;
 import si.fri.rso.teamlj.users.models.dtos.BikeRent;
 import si.fri.rso.teamlj.users.models.entities.User;
+import si.fri.rso.teamlj.users.services.configuration.AppProperties;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -19,8 +21,8 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.UriInfo;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 
@@ -33,16 +35,21 @@ public class UsersBean {
     private EntityManager em;
 
     @Inject
+    private AppProperties appProperties;
+
+    @Inject
     private UsersBean usersBean;
 
     private Client httpClient;
 
-    private String baseUrl;
+    @Inject
+    @DiscoverService("rso-rents")
+    private Optional<String> baseUrl;
 
     @PostConstruct
     private void init() {
         httpClient = ClientBuilder.newClient();
-        baseUrl = "http://localhost:8081"; // only for demonstration
+        //baseUrl = "http://localhost:8081"; // only for demonstration
     }
 
 
