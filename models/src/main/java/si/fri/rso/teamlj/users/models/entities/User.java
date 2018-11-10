@@ -26,6 +26,11 @@ public class User {
 
     private String address;
 
+<<<<<<< HEAD
+=======
+    private String email;
+
+>>>>>>> develop
     private boolean inUse;
 
     @Column(name = "date_of_birth")
@@ -64,6 +69,14 @@ public class User {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public boolean getInUse() {

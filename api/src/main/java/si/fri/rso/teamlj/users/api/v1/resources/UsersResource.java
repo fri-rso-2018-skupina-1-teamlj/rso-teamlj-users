@@ -77,8 +77,8 @@ public class UsersResource {
     }
 
     @PUT
-    @Path("{userId}")
-    public Response putUser(@PathParam("userId") String userId, User user) {
+    @Path("/{userId}")
+    public Response putUser(@PathParam("userId") Integer userId, User user) {
 
         user = usersBean.putUser(userId, user);
 
@@ -93,8 +93,8 @@ public class UsersResource {
     }
 
     @DELETE
-    @Path("{userId}")
-    public Response deleteUser(@PathParam("userId") String userId) {
+    @Path("/{userId}")
+    public Response deleteUser(@PathParam("userId") Integer userId) {
 
         boolean deleted = usersBean.deleteUser(userId);
 
@@ -102,6 +102,38 @@ public class UsersResource {
             return Response.status(Response.Status.GONE).build();
         } else {
             return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
+
+    @PUT
+    @Path("/{userId}/rent/{bikeId}")
+    public Response rent(@PathParam("userId") Integer userId, @PathParam("bikeId") Integer bikeId)
+    {
+        User user = usersBean.rent(userId, bikeId);
+
+        if (user == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        } else {
+            if (user.getId() != null)
+                return Response.status(Response.Status.OK).entity(user).build();
+            else
+                return Response.status(Response.Status.NOT_MODIFIED).build();
+        }
+    }
+
+    @PUT
+    @Path("/{userId}/return/{rentId}")
+    public Response returnBike(@PathParam("userId") Integer userId, @PathParam("rentId") Integer rentId)
+    {
+        User user = usersBean.returnBike(userId, rentId);
+
+        if (user == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        } else {
+            if (user.getId() != null)
+                return Response.status(Response.Status.OK).entity(user).build();
+            else
+                return Response.status(Response.Status.NOT_MODIFIED).build();
         }
     }
 }

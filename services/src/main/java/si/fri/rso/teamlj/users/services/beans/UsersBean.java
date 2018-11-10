@@ -19,6 +19,7 @@ import javax.ws.rs.ProcessingException;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.UriInfo;
 import java.util.List;
@@ -74,7 +75,7 @@ public class UsersBean {
         User user = em.find(User.class, userId);
 
         if (user == null) {
-            log.warning("user null");
+            log.warning("user do not exist/user was deleted");
             throw new NotFoundException();
         }
 
@@ -97,7 +98,7 @@ public class UsersBean {
         return user;
     }
 
-    public User putUser(String userId, User user) {
+    public User putUser(Integer userId, User user) {
 
         User u = em.find(User.class, userId);
 
@@ -117,7 +118,7 @@ public class UsersBean {
         return user;
     }
 
-    public boolean deleteUser(String userId) {
+    public boolean deleteUser(Integer userId) {
 
         User user = em.find(User.class, userId);
 
@@ -139,7 +140,9 @@ public class UsersBean {
 
         try {
             return httpClient
-                    .target(baseUrl + "/v1/rents?where=userId:EQ:" + userId)
+                    //TODO
+                    //.target(baseUrl.get()  + "/v1/rents?where=userId:EQ:" + userId)
+                    .target("http://localhost:8081/v1/rents?where=userId:EQ:" + userId)
                     .request().get(new GenericType<List<BikeRent>>() {
                     });
         } catch (WebApplicationException | ProcessingException e) {
@@ -147,6 +150,78 @@ public class UsersBean {
             throw new InternalServerErrorException(e);
         }
 
+    }
+
+    public User rent(Integer userId, Integer bikeId)
+    {
+        /** TODO :
+         * - (preveri, če user exist) --- no
+         * - (preveri, če bike exist) --- no
+         * - preveri, da uporabnik, še nima izposojenega kolesa --- jes
+         * - PREVERI, ČE IMA USER NAROČNINO -- PAYMENT
+         */
+
+        User u = em.find(User.class, userId);
+
+        if (u == null) {
+            return null;
+        }
+
+        if(!u.getInUse()) {
+
+            try {
+                beginTx();
+                u.setInUse(true);
+                commitTx();
+            } catch (Exception e) {
+                rollbackTx();
+            }
+
+            try {
+                httpClient
+                        //TODO
+                        .target("http://localhost:8081/v1/rents/rentabike/" + userId + "/" + bikeId)
+                        .request()
+                        .build("POST", Entity.json(""))
+                        .invoke();
+            } catch (WebApplicationException | ProcessingException e) {
+                log.severe(e.getMessage());
+                throw new InternalServerErrorException(e);
+            }
+        }
+
+        return u;
+    }
+
+    public User returnBike(Integer userId, Integer rentId)
+    {
+        User u = em.find(User.class, userId);
+
+        if (u == null) {
+            return null;
+        }
+
+        try {
+            beginTx();
+            u.setInUse(false);
+            commitTx();
+        } catch (Exception e) {
+            rollbackTx();
+        }
+
+        try {
+            httpClient
+                    //TODO
+                    .target("http://localhost:8081/v1/rents/returnabike/" + userId + "/" + rentId)
+                    .request()
+                    .build("PUT", Entity.json(""))
+                    .invoke();
+        } catch (WebApplicationException | ProcessingException e) {
+            log.severe(e.getMessage());
+            throw new InternalServerErrorException(e);
+        }
+
+        return u;
     }
 
     private void beginTx() {
