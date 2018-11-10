@@ -26,11 +26,8 @@ public class User {
 
     private String address;
 
-<<<<<<< HEAD
-=======
     private String email;
 
->>>>>>> develop
     private boolean inUse;
 
     @Column(name = "date_of_birth")
