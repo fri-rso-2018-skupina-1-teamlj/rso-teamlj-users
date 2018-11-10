@@ -224,6 +224,54 @@ public class UsersBean {
         return u;
     }
 
+    public User pay(Integer userId) {
+
+        User user = em.find(User.class, userId);
+
+        if (user == null) {
+            log.warning("user do not exist");
+            throw new NotFoundException();
+        }
+
+        try {
+            httpClient
+                    //TODO
+                    .target("http://localhost:8083/v1/payments/pay/" + userId)
+                    .request()
+                    .build("POST", Entity.json(""))
+                    .invoke();
+        } catch (WebApplicationException | ProcessingException e) {
+            log.severe(e.getMessage());
+            throw new InternalServerErrorException(e);
+        }
+
+        return user;
+    }
+
+    public User subscribed(Integer userId) {
+
+        User user = em.find(User.class, userId);
+
+        if (user == null) {
+            log.warning("user do not exist");
+            throw new NotFoundException();
+        }
+
+        try {
+            httpClient
+                    //TODO
+                    .target("http://localhost:8083/v1/payments/subscribed/" + userId)
+                    .request()
+                    .build("PUT", Entity.json(""))
+                    .invoke();
+        } catch (WebApplicationException | ProcessingException e) {
+            log.severe(e.getMessage());
+            throw new InternalServerErrorException(e);
+        }
+
+        return user;
+    }
+
     private void beginTx() {
         if (!em.getTransaction().isActive())
             em.getTransaction().begin();

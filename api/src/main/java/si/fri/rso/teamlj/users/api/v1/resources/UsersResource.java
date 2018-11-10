@@ -136,4 +136,31 @@ public class UsersResource {
                 return Response.status(Response.Status.NOT_MODIFIED).build();
         }
     }
+
+    @GET
+    @Path("/pay/{userId}")
+    public Response pay(@PathParam("userId") Integer userId) {
+
+        User user = usersBean.pay(userId);
+
+        if (user == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        return Response.status(Response.Status.OK).entity(user).build();
+    }
+
+    @GET
+    @Path("/subscribed/{userId}")
+    public Response subscribed(@PathParam("userId") Integer userId) {
+
+        User user = usersBean.subscribed(userId);
+
+        if (user == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+
+        return Response.status(Response.Status.OK).header("Uporabniku je potekla naročnina", user).build();
+    }
+
 }
