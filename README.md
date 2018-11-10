@@ -3,8 +3,8 @@
 ## Prerequisites
 
 ```bash
-docker run -d --name pg-users -e POSTGRES_USER=dbuser -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=userTable -p 5432:5432 postgres:10.5
-docker run -d --name pg-users -e POSTGRES_USER=dbuser -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=userTable -p 5432:5432 --net=rso postgres:10.5
+docker run -d --name pg-users -e POSTGRES_USER=dbuser -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=userTable -p 5432:5432 postgres:latest
+docker run -d --name pg-users -e POSTGRES_USER=dbuser -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=userTable -p 5432:5432 --net=rso postgres:latest
 ```
 
 Local run (warning: debugger needs to be attached):
