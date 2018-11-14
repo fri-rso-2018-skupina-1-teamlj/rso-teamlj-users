@@ -1,14 +1,14 @@
 version: "3"
 services:
   postgres:
-    image: postgres:10.5
+    image: postgres:latest
     ports:
     - 5432:5432
     environment:
       POSTGRES_USER: dbuser
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: userTable
-  rso-customers:
+  rso-users:
     image: ls8856/rso-teamlj-users:1.2
     ports:
     - 8080:8080

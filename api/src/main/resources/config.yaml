@@ -16,7 +16,7 @@ kumuluzee:
       max-pool-size: 20
   config:
     etcd:
-      hosts: http://localhost:2379
+      hosts: http://127.0.0.1:2379
     discovery:
       etcd:
         hosts: http://localhost:2379

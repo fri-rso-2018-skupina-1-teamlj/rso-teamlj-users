@@ -47,6 +47,10 @@ public class UsersBean {
     @DiscoverService("rso-rents")
     private Optional<String> baseUrl;
 
+    @Inject
+    @DiscoverService("rso-payments")
+    private Optional<String> baseUrlPay;
+
     @PostConstruct
     private void init() {
         httpClient = ClientBuilder.newClient();
@@ -141,8 +145,8 @@ public class UsersBean {
         try {
             return httpClient
                     //TODO
-                    //.target(baseUrl.get()  + "/v1/rents?where=userId:EQ:" + userId)
-                    .target("http://localhost:8081/v1/rents?where=userId:EQ:" + userId)
+                    .target(baseUrl.get()  + "/v1/rents?where=userId:EQ:" + userId)
+                    //.target("http://localhost:8081/v1/rents?where=userId:EQ:" + userId)
                     .request().get(new GenericType<List<BikeRent>>() {
                     });
         } catch (WebApplicationException | ProcessingException e) {
@@ -180,7 +184,8 @@ public class UsersBean {
             try {
                 httpClient
                         //TODO
-                        .target("http://localhost:8081/v1/rents/rentabike/" + userId + "/" + bikeId)
+                        .target(baseUrl.get()  + "/v1/rents/rentabike/" + userId + "/" + bikeId)
+                        //.target("http://localhost:8081/v1/rents/rentabike/" + userId + "/" + bikeId)
                         .request()
                         .build("POST", Entity.json(""))
                         .invoke();
@@ -212,7 +217,8 @@ public class UsersBean {
         try {
             httpClient
                     //TODO
-                    .target("http://localhost:8081/v1/rents/returnabike/" + userId + "/" + rentId)
+                    .target(baseUrl.get()  + "/v1/rents/returnabike/" + userId + "/" + rentId)
+                    //.target("http://localhost:8081/v1/rents/returnabike/" + userId + "/" + rentId)
                     .request()
                     .build("PUT", Entity.json(""))
                     .invoke();
@@ -236,7 +242,8 @@ public class UsersBean {
         try {
             httpClient
                     //TODO
-                    .target("http://localhost:8083/v1/payments/pay/" + userId)
+                    .target(baseUrlPay.get()  + "/v1/payments/pay/" + userId)
+                    //.target("http://localhost:8083/v1/payments/pay/" + userId)
                     .request()
                     .build("POST", Entity.json(""))
                     .invoke();
@@ -260,7 +267,8 @@ public class UsersBean {
         try {
             httpClient
                     //TODO
-                    .target("http://localhost:8083/v1/payments/subscribed/" + userId)
+                    .target(baseUrlPay.get()  + "/v1/payments/subscribed/" + userId)
+                    //.target("http://localhost:8083/v1/payments/subscribed/" + userId)
                     .request()
                     .build("PUT", Entity.json(""))
                     .invoke();
