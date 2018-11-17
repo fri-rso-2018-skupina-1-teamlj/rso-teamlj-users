@@ -9,14 +9,13 @@ kumuluzee:
       port: 8080
   datasources:
     - jndi-name: jdbc/UsersDS
-      # USE LOCAL IP for now
       connection-url: jdbc:postgresql://localhost:5432/userTable
       username: dbuser
       password: postgres
       max-pool-size: 20
   config:
     etcd:
-      hosts: http://127.0.0.1:2379
+      hosts: http://localhost:2379
     discovery:
       etcd:
         hosts: http://localhost:2379
