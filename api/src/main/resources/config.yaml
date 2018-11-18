@@ -9,10 +9,11 @@ kumuluzee:
       port: 8080
   datasources:
     - jndi-name: jdbc/UsersDS
-      connection-url: jdbc:postgresql://google/userTable?cloudSqlInstance=rso-teamlj:europe-north1:users-instance&socketFactory=com.google.cloud.sql.postgres.SocketFactory&user=postgres&password=midva
-      #jdbc:postgresql://google/<DATABASE_NAME>?cloudSqlInstance=<INSTANCE_CONNECTION_NAME>&socketFactory=com.google.cloud.sql.postgres.SocketFactory&user=<POSTGRESQL_USER_NAME>&password=<POSTGRESQL_USER_PASSWORD>
-      #username: users-instance
-      #password: midva
+	  connection-url: jdbc:postgresql://google/userTable
+      cloudSqlInstance: rso-teamlj:europe-north1:users-instance
+      socketFactory: com.google.cloud.sql.postgres.SocketFactory
+      user: user
+      password: midva
       max-pool-size: 20
   config:
     etcd:
