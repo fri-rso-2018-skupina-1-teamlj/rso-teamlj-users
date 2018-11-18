@@ -61,6 +61,12 @@
                 <artifactId>postgresql</artifactId>
                 <version>${postgresql.version}</version>
             </dependency>
+            
+            <dependency>
+				<groupId>com.google.cloud.sql</groupId>
+				<artifactId>postgres-socket-factory</artifactId>
+				<version>1.0.11</version>
+			</dependency>
 
             <dependency>
                 <groupId>si.fri.teamlj.users</groupId>
