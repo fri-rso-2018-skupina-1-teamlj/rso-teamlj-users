@@ -9,7 +9,7 @@ kumuluzee:
       port: 8080
   datasources:
     - jndi-name: jdbc/UsersDS
-	  connection-url: jdbc:postgresql://google/userTable
+      connection-url: jdbc:postgresql://google/userTable
       cloudSqlInstance: rso-teamlj:europe-north1:users-instance
       socketFactory: com.google.cloud.sql.postgres.SocketFactory
       user: user

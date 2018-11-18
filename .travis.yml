@@ -14,7 +14,7 @@ cache:
   - $HOME/.m2
 
 env:
-- DOCKER_IMAGE=ls8856/rso-teamlj-users:1.7
+- DOCKER_IMAGE=ls8856/rso-teamlj-users:1.8
 
 script:
 - mvn clean package -U
