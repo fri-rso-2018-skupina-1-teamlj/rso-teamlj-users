@@ -15,6 +15,7 @@ spec:
       containers:
       - name: user
         image: ls8856/rso-teamlj-users:1.6
+        command: [ "echo", "SUCCESS" ]
         env:
           - name: KUMULUZEE_DISCOVERY_CLUSTER
             value: gcloud
