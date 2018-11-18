@@ -14,8 +14,7 @@ spec:
     spec:
       containers:
       - name: user
-        image: ls8856/rso-teamlj-users:1.9
-        #command: [ "echo", "SUCCESS" ]
+        image: ls8856/rso-teamlj-users:1.11
         env:
           - name: KUMULUZEE_DISCOVERY_CLUSTER
             value: gcloud
@@ -24,7 +23,7 @@ spec:
           - name: KUMULUZEE_CONFIG_ETCD_HOSTS
             value: http://etcd:2379
           - name: KUMULUZEE_SERVER_BASEURL
-            value: http://35.240.79.227:8080
+            value: http://169.51.13.134:32696
         ports:
         - containerPort: 8080
           name: server
