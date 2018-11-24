@@ -15,16 +15,45 @@ import javax.json.JsonObject;
 @Consumes(MediaType.APPLICATION_JSON)
 public class InfoResource {
 
-    private Logger log = Logger.getLogger(UsersResource.class.getName());
-
+    private Logger log = Logger.getLogger(InfoResource.class.getName());
+    
+    @Inject
+    private AppProperties appProperties;
+     
+    @GET
+    @Path("instanceid")
+    public Response getInstanceId() {
+         String instanceId =
+                "{\"instanceId\" : \"" + EeRuntime.getInstance().getInstanceId() + "\"}";
+         return Response.ok(instanceId).build();
+    }
+    
+    @POST
+    @Path("healthy")
+    public Response setHealth(HealthDto health) {
+        appProperties.setHealthy(health.getHealthy());
+        log.info("Setting health to " + health.getHealthy());
+        return Response.ok().build();
+    }
+    
+    @POST
+    @Path("load")
+    public Response loadOrder(LoadDto loadDto) {
+         for (int i = 1; i <= loadDto.getN(); i++) {
+            fibonacci(i);
+        }
+         return Response.status(Response.Status.OK).build();
+    }
+	
     @GET
     @Path("info")
     public Response info() {
-
+		
+		//TODO
         JsonObject json = Json.createObjectBuilder()
                 .add("clani", Json.createArrayBuilder().add("jp8874@student.uni-lj.si").add("ls.."))
                 .add("opis_projekta", "Nas projekt implementira aplikacijo za deljenje koles.")
-                .add("mikrostoritve", Json.createArrayBuilder().add("http://35.204.91.158:8081/v1/user"))
+                .add("mikrostoritve", Json.createArrayBuilder().add("http://35.204.91.158:8080/v1/user"))
                 .add("github", Json.createArrayBuilder().add("https://github.com/..."))
                 .add("travis", Json.createArrayBuilder().add("https://travis-ci.org/..."))
                 .add("dockerhub", Json.createArrayBuilder().add("https://hub.docker.com/r/..."))
@@ -32,6 +61,11 @@ public class InfoResource {
 
 
         return Response.ok(json.toString()).build();
+    }
+    
+    private long fibonacci(int n) {
+        if (n <= 1) return n;
+        else return fibonacci(n - 1) + fibonacci(n - 2);
     }
 
 }
