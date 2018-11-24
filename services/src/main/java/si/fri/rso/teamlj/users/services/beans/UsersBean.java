@@ -4,6 +4,9 @@ package si.fri.rso.teamlj.users.services.beans;
 import com.kumuluz.ee.discovery.annotations.DiscoverService;
 import com.kumuluz.ee.rest.beans.QueryParameters;
 import com.kumuluz.ee.rest.utils.JPAUtils;
+
+import org.eclipse.microprofile.metrics.annotation.Timed;
+
 import si.fri.rso.teamlj.users.models.dtos.BikeRent;
 import si.fri.rso.teamlj.users.models.entities.User;
 import si.fri.rso.teamlj.users.services.configuration.AppProperties;
@@ -57,7 +60,7 @@ public class UsersBean {
         //baseUrl = "http://localhost:8081"; // only for demonstration
     }
 
-
+	@Timed
     public List<User> getUsers() {
 
         TypedQuery<User> query = em.createNamedQuery("User.getAll", User.class);
@@ -144,7 +147,6 @@ public class UsersBean {
 
         try {
             return httpClient
-                    //TODO
                     .target(baseUrl.get()  + "/v1/rents?where=userId:EQ:" + userId)
                     //.target("http://localhost:8081/v1/rents?where=userId:EQ:" + userId)
                     .request().get(new GenericType<List<BikeRent>>() {
@@ -183,7 +185,6 @@ public class UsersBean {
 
             try {
                 httpClient
-                        //TODO
                         .target(baseUrl.get()  + "/v1/rents/rentabike/" + userId + "/" + bikeId)
                         //.target("http://localhost:8081/v1/rents/rentabike/" + userId + "/" + bikeId)
                         .request()
@@ -216,7 +217,6 @@ public class UsersBean {
 
         try {
             httpClient
-                    //TODO
                     .target(baseUrl.get()  + "/v1/rents/returnabike/" + userId + "/" + rentId)
                     //.target("http://localhost:8081/v1/rents/returnabike/" + userId + "/" + rentId)
                     .request()
@@ -241,7 +241,6 @@ public class UsersBean {
 
         try {
             httpClient
-                    //TODO
                     .target(baseUrlPay.get()  + "/v1/payments/pay/" + userId)
                     //.target("http://localhost:8083/v1/payments/pay/" + userId)
                     .request()
@@ -266,7 +265,6 @@ public class UsersBean {
 
         try {
             httpClient
-                    //TODO
                     .target(baseUrlPay.get()  + "/v1/payments/subscribed/" + userId)
                     //.target("http://localhost:8083/v1/payments/subscribed/" + userId)
                     .request()

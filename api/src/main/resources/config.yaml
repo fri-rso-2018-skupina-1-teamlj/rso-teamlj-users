@@ -9,7 +9,6 @@ kumuluzee:
       port: 8080
   datasources:
     - jndi-name: jdbc/UsersDS
-      #connection-url: jdbc:postgresql://google/userTable?cloudSqlInstance=rso-teamlj:europe-north1:users-instance&socketFactory=com.google.cloud.sql.postgres.SocketFactory&user=rso&password=rso
       connection-url: jdbc:postgresql://35.228.47.159:5432/userTable
       username: rso
       password: rso
@@ -20,6 +19,10 @@ kumuluzee:
     discovery:
       etcd:
         hosts: http://localhost:2379
+   metrics:
+    web-instrumentation:
+    - name: user-endpoint
+      url-pattern: /v1/users/*
   app-properties:
     external-services:
       enabled: false

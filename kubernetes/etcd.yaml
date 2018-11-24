@@ -54,7 +54,7 @@ kind: Service
 metadata:
   name: etcd
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
   - name: client
     port: 2379
