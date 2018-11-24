@@ -22,14 +22,15 @@ kumuluzee:
     discovery:
       etcd:
         hosts: http://localhost:2379
-   metrics:
+  metrics:
     web-instrumentation:
     - name: user-endpoint
       url-pattern: /v1/users/*
-   health:
+  health:
     checks:
       data-source-health-check:
         jndi-name: jdbc/UsersDS
   app-properties:
     external-services:
       enabled: false
+    healthy: true
