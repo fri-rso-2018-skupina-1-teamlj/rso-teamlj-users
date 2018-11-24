@@ -1,15 +1,21 @@
 package si.fri.rso.teamlj.users.api.v1.resources;
 
-import javax.enterprise.context.RequestScoped;
+import com.kumuluz.ee.common.runtime.EeRuntime;
+
+import si.fri.rso.teamlj.users.api.v1.dtos.HealthDto;
+import si.fri.rso.teamlj.users.api.v1.dtos.LoadDto;
+import si.fri.rso.teamlj.users.services.configuration.AppProperties;
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.json.Json;
+import javax.json.JsonObject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.logging.Logger;
-import javax.json.Json;
-import javax.json.JsonObject;
 
-
-@RequestScoped
+@ApplicationScoped
 @Path("/info")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)

@@ -1,4 +1,4 @@
-package si.fri.rso.tesmlj.users.api.v1.dtos;
+package si.fri.rso.teamlj.users.api.v1.dtos;
 
 public class HealthDto {
 

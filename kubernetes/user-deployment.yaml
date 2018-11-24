@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: user
-        image: ls8856/rso-teamlj-users:1.14
+        image: ls8856/rso-teamlj-users:1.15
         env:
           - name: KUMULUZEE_DISCOVERY_CLUSTER
             value: gcloud

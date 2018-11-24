@@ -4,7 +4,7 @@ import org.eclipse.microprofile.health.Health;
 import org.eclipse.microprofile.health.HealthCheck;
 import org.eclipse.microprofile.health.HealthCheckResponse;
 import org.eclipse.microprofile.health.HealthCheckResponseBuilder;
-import si.fri.rso.samples.customers.services.configuration.AppProperties;
+import si.fri.rso.teamlj.users.services.configuration.AppProperties;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
