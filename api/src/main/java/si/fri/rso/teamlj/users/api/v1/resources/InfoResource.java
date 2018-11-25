@@ -55,7 +55,7 @@ public class InfoResource {
     @Path("info")
     public Response info() {
 		
-		//TODO
+		//TODO - zlistamo po vrsti glede na port od 8080 do 8085
         JsonObject json = Json.createObjectBuilder()
                 .add("clani", Json.createArrayBuilder().add("jp8874@student.uni-lj.si").add("ls8856@student.uni-lj.si"))
                 .add("opis_projekta", "Nas projekt implementira aplikacijo za deljenje koles.")
