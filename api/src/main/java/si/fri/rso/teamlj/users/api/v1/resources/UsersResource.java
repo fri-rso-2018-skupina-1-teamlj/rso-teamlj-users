@@ -160,7 +160,9 @@ public class UsersResource {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
 
-        return Response.status(Response.Status.OK).header("Uporabniku je potekla naročnina", user).build();
+        // TODO - zakaj ta header? treba dodat payment v userja kot dtos
+//        return Response.status(Response.Status.OK).header("Uporabniku je potekla naročnina", user).build();
+        return Response.status(Response.Status.OK).entity(user).build();
     }
 
 }

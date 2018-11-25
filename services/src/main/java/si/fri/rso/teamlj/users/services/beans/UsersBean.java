@@ -263,10 +263,12 @@ public class UsersBean {
             throw new NotFoundException();
         }
 
+        // TODO - check, ali je tole ok? mislim da ni
+
         try {
             httpClient
                     .target(baseUrlPay.get()  + "/v1/payments/subscribed/" + userId)
-                    //.target("http://localhost:8083/v1/payments/subscribed/" + userId)
+//                    .target("http://localhost:8083/v1/payments/subscribed/" + userId)
                     .request()
                     .build("PUT", Entity.json(""))
                     .invoke();
