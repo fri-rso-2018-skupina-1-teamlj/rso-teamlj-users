@@ -57,10 +57,10 @@ public class InfoResource {
 		
 		//TODO
         JsonObject json = Json.createObjectBuilder()
-                .add("clani", Json.createArrayBuilder().add("jp8874@student.uni-lj.si").add("ls.."))
+                .add("clani", Json.createArrayBuilder().add("jp8874@student.uni-lj.si").add("ls8856@student.uni-lj.si"))
                 .add("opis_projekta", "Nas projekt implementira aplikacijo za deljenje koles.")
                 .add("mikrostoritve", Json.createArrayBuilder().add("http://35.204.91.158:8080/v1/user"))
-                .add("github", Json.createArrayBuilder().add("https://github.com/..."))
+                .add("github", Json.createArrayBuilder().add("https://github.com/fri-rso-2018-skupina-1-teamlj"))
                 .add("travis", Json.createArrayBuilder().add("https://travis-ci.org/..."))
                 .add("dockerhub", Json.createArrayBuilder().add("https://hub.docker.com/r/..."))
                 .build();
