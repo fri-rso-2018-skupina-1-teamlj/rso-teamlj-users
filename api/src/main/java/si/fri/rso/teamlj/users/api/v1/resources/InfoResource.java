@@ -62,7 +62,13 @@ public class InfoResource {
                 .add("mikrostoritve", Json.createArrayBuilder().add("http://35.204.91.158:8080/v1/user"))
                 .add("github", Json.createArrayBuilder().add("https://github.com/fri-rso-2018-skupina-1-teamlj"))
                 .add("travis", Json.createArrayBuilder().add("https://travis-ci.org/..."))
-                .add("dockerhub", Json.createArrayBuilder().add("https://hub.docker.com/r/..."))
+                .add("dockerhub", Json.createArrayBuilder().add("https://hub.docker.com/r/ls8856/rso-teamlj-users/")
+                                                              .add("https://hub.docker.com/r/jp8874/rso-teamlj-rents/")
+                                                              .add("https://hub.docker.com/r/jp8874/rso-teamlj-bikes/")
+                                                              .add("https://hub.docker.com/r/jp8874/rso-teamlj-payments/")
+                                                              .add("https://hub.docker.com/r/ls8856/rso-teamlj-map/")
+                                                              .add("https://hub.docker.com/r/ls8856/rso-teamlj-notifications/"))
+
                 .build();
 
 
