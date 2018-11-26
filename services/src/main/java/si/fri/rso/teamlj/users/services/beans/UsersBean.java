@@ -148,8 +148,8 @@ public class UsersBean {
 
         try {
             return httpClient
-//                    .target(baseUrl.get()  + "/v1/rents?where=userId:EQ:" + userId)
-                    .target("http://localhost:8081/v1/rents?where=userId:EQ:" + userId)
+                    .target(baseUrl.get()  + "/v1/rents?where=userId:EQ:" + userId)
+//                    .target("http://localhost:8081/v1/rents?where=userId:EQ:" + userId)
                     .request().get(new GenericType<List<BikeRent>>() {
                     });
         } catch (WebApplicationException | ProcessingException e) {
@@ -186,8 +186,8 @@ public class UsersBean {
 
             try {
                 httpClient
-//                        .target(baseUrl.get()  + "/v1/rents/rentabike/" + userId + "/" + bikeId)
-                        .target("http://localhost:8081/v1/rents/rentabike/" + userId + "/" + bikeId)
+                        .target(baseUrl.get()  + "/v1/rents/rentabike/" + userId + "/" + bikeId)
+//                        .target("http://localhost:8081/v1/rents/rentabike/" + userId + "/" + bikeId)
                         .request()
                         .build("POST", Entity.json(""))
                         .invoke();
@@ -218,8 +218,8 @@ public class UsersBean {
 
         try {
             httpClient
-//                    .target(baseUrl.get()  + "/v1/rents/returnabike/" + userId + "/" + rentId + "/" + mapId)
-                    .target("http://localhost:8081/v1/rents/returnabike/" + userId + "/" + rentId + "/" + mapId)
+                    .target(baseUrl.get()  + "/v1/rents/returnabike/" + userId + "/" + rentId + "/" + mapId)
+//                    .target("http://localhost:8081/v1/rents/returnabike/" + userId + "/" + rentId + "/" + mapId)
                     .request()
                     .build("PUT", Entity.json(""))
                     .invoke();
@@ -242,8 +242,8 @@ public class UsersBean {
 
         try {
             httpClient
-//                    .target(baseUrlPay.get()  + "/v1/payments/pay/" + userId)
-                    .target("http://localhost:8083/v1/payments/pay/" + userId)
+                    .target(baseUrlPay.get()  + "/v1/payments/pay/" + userId)
+//                    .target("http://localhost:8083/v1/payments/pay/" + userId)
                     .request()
                     .build("POST", Entity.json(""))
                     .invoke();
@@ -267,7 +267,7 @@ public class UsersBean {
 
 
         try {
-            // TODO - check, ali je tole ok? mislim da ni
+            // TODO - check, ali je tole ok? mislim da ni - zakaj je bil prej put??
 //            httpClient
 //                    .target(baseUrlPay.get()  + "/v1/payments/subscribed/" + userId)
 //                    .target("http://localhost:8083/v1/payments/subscribed/" + userId)
@@ -277,8 +277,8 @@ public class UsersBean {
 
 
             return httpClient
-//                    .target(baseUrlPay.get()  + "/v1/payments/subscribed/" + userId)
-                    .target("http://localhost:8083/v1/payments/subscribed/" + userId)
+                    .target(baseUrlPay.get()  + "/v1/payments/subscribed/" + userId)
+//                    .target("http://localhost:8083/v1/payments/subscribed/" + userId)
                     .request().get(new GenericType<Payment>() {
                     });
         } catch (WebApplicationException | ProcessingException e) {
