@@ -25,6 +25,7 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.util.List;
 import java.util.Optional;
@@ -255,7 +256,7 @@ public class UsersBean {
         return user;
     }
 
-    public Payment subscribed(Integer userId) {
+    public String subscribed(Integer userId) {
 
         User user = em.find(User.class, userId);
 
@@ -265,22 +266,15 @@ public class UsersBean {
         }
 
 
-
         try {
-            // TODO - check, ali je tole ok? mislim da ni - zakaj je bil prej put??
-//            httpClient
-//                    .target(baseUrlPay.get()  + "/v1/payments/subscribed/" + userId)
-//                    .target("http://localhost:8083/v1/payments/subscribed/" + userId)
-//                    .request()
-//                    .build("PUT", Entity.json(""))
-//                    .invoke();
-
-
-            return httpClient
+            Response response =  httpClient
                     .target(baseUrlPay.get()  + "/v1/payments/subscribed/" + userId)
 //                    .target("http://localhost:8083/v1/payments/subscribed/" + userId)
-                    .request().get(new GenericType<Payment>() {
-                    });
+                    .request()
+                    .build("PUT", Entity.json(""))
+                    .invoke();
+
+            return response.readEntity(String.class);
         } catch (WebApplicationException | ProcessingException e) {
             log.severe(e.getMessage());
             throw new InternalServerErrorException(e);

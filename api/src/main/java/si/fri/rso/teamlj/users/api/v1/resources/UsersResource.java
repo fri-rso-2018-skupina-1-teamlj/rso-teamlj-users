@@ -155,15 +155,16 @@ public class UsersResource {
     @Path("/subscribed/{userId}")
     public Response subscribed(@PathParam("userId") Integer userId) {
 
-        Payment payment = usersBean.subscribed(userId);
+        String result = usersBean.subscribed(userId);
 
-        if (payment == null) {
+        if (result == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
+        } else {
+            if (result.equals(""))
+                return Response.status(Response.Status.OK).entity("Ni veljavne naročnine").build();
+            else
+                return Response.status(Response.Status.OK).entity(result).build();
         }
-
-        // TODO - zakaj ta header? treba je blo dodat payment v userja kot dtos
-//        return Response.status(Response.Status.OK).header("Uporabniku je potekla naročnina", user).build();
-        return Response.status(Response.Status.OK).entity(payment).build();
     }
 
 }
