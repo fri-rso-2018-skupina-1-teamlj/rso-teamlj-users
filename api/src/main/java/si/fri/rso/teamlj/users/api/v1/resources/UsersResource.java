@@ -1,5 +1,6 @@
 package si.fri.rso.teamlj.users.api.v1.resources;
 
+import si.fri.rso.teamlj.users.models.dtos.Payment;
 import si.fri.rso.teamlj.users.models.entities.User;
 import si.fri.rso.teamlj.users.services.beans.UsersBean;
 
@@ -122,10 +123,10 @@ public class UsersResource {
     }
 
     @PUT
-    @Path("/{userId}/return/{rentId}")
-    public Response returnBike(@PathParam("userId") Integer userId, @PathParam("rentId") Integer rentId)
+    @Path("/{userId}/return/{rentId}/{mapId}")
+    public Response returnBike(@PathParam("userId") Integer userId, @PathParam("rentId") Integer rentId, @PathParam("mapId") Integer mapId)
     {
-        User user = usersBean.returnBike(userId, rentId);
+        User user = usersBean.returnBike(userId, rentId, mapId);
 
         if (user == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
@@ -154,15 +155,15 @@ public class UsersResource {
     @Path("/subscribed/{userId}")
     public Response subscribed(@PathParam("userId") Integer userId) {
 
-        User user = usersBean.subscribed(userId);
+        Payment payment = usersBean.subscribed(userId);
 
-        if (user == null) {
+        if (payment == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
 
         // TODO - zakaj ta header? treba dodat payment v userja kot dtos
 //        return Response.status(Response.Status.OK).header("Uporabniku je potekla naročnina", user).build();
-        return Response.status(Response.Status.OK).entity(user).build();
+        return Response.status(Response.Status.OK).entity(payment).build();
     }
 
 }

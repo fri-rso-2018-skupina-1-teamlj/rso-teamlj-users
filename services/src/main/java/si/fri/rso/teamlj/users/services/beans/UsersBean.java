@@ -8,6 +8,7 @@ import com.kumuluz.ee.rest.utils.JPAUtils;
 import org.eclipse.microprofile.metrics.annotation.Timed;
 
 import si.fri.rso.teamlj.users.models.dtos.BikeRent;
+import si.fri.rso.teamlj.users.models.dtos.Payment;
 import si.fri.rso.teamlj.users.models.entities.User;
 import si.fri.rso.teamlj.users.services.configuration.AppProperties;
 
@@ -147,8 +148,8 @@ public class UsersBean {
 
         try {
             return httpClient
-                    .target(baseUrl.get()  + "/v1/rents?where=userId:EQ:" + userId)
-                    //.target("http://localhost:8081/v1/rents?where=userId:EQ:" + userId)
+//                    .target(baseUrl.get()  + "/v1/rents?where=userId:EQ:" + userId)
+                    .target("http://localhost:8081/v1/rents?where=userId:EQ:" + userId)
                     .request().get(new GenericType<List<BikeRent>>() {
                     });
         } catch (WebApplicationException | ProcessingException e) {
@@ -185,8 +186,8 @@ public class UsersBean {
 
             try {
                 httpClient
-                        .target(baseUrl.get()  + "/v1/rents/rentabike/" + userId + "/" + bikeId)
-                        //.target("http://localhost:8081/v1/rents/rentabike/" + userId + "/" + bikeId)
+//                        .target(baseUrl.get()  + "/v1/rents/rentabike/" + userId + "/" + bikeId)
+                        .target("http://localhost:8081/v1/rents/rentabike/" + userId + "/" + bikeId)
                         .request()
                         .build("POST", Entity.json(""))
                         .invoke();
@@ -199,7 +200,7 @@ public class UsersBean {
         return u;
     }
 
-    public User returnBike(Integer userId, Integer rentId)
+    public User returnBike(Integer userId, Integer rentId, Integer mapId)
     {
         User u = em.find(User.class, userId);
 
@@ -217,8 +218,8 @@ public class UsersBean {
 
         try {
             httpClient
-                    .target(baseUrl.get()  + "/v1/rents/returnabike/" + userId + "/" + rentId)
-                    //.target("http://localhost:8081/v1/rents/returnabike/" + userId + "/" + rentId)
+//                    .target(baseUrl.get()  + "/v1/rents/returnabike/" + userId + "/" + rentId + "/" + mapId)
+                    .target("http://localhost:8081/v1/rents/returnabike/" + userId + "/" + rentId + "/" + mapId)
                     .request()
                     .build("PUT", Entity.json(""))
                     .invoke();
@@ -241,8 +242,8 @@ public class UsersBean {
 
         try {
             httpClient
-                    .target(baseUrlPay.get()  + "/v1/payments/pay/" + userId)
-                    //.target("http://localhost:8083/v1/payments/pay/" + userId)
+//                    .target(baseUrlPay.get()  + "/v1/payments/pay/" + userId)
+                    .target("http://localhost:8083/v1/payments/pay/" + userId)
                     .request()
                     .build("POST", Entity.json(""))
                     .invoke();
@@ -254,7 +255,7 @@ public class UsersBean {
         return user;
     }
 
-    public User subscribed(Integer userId) {
+    public Payment subscribed(Integer userId) {
 
         User user = em.find(User.class, userId);
 
@@ -263,21 +264,29 @@ public class UsersBean {
             throw new NotFoundException();
         }
 
-        // TODO - check, ali je tole ok? mislim da ni
+
 
         try {
-            httpClient
-                    .target(baseUrlPay.get()  + "/v1/payments/subscribed/" + userId)
+            // TODO - check, ali je tole ok? mislim da ni
+//            httpClient
+//                    .target(baseUrlPay.get()  + "/v1/payments/subscribed/" + userId)
 //                    .target("http://localhost:8083/v1/payments/subscribed/" + userId)
-                    .request()
-                    .build("PUT", Entity.json(""))
-                    .invoke();
+//                    .request()
+//                    .build("PUT", Entity.json(""))
+//                    .invoke();
+
+
+            return httpClient
+//                    .target(baseUrlPay.get()  + "/v1/payments/subscribed/" + userId)
+                    .target("http://localhost:8083/v1/payments/subscribed/" + userId)
+                    .request().get(new GenericType<Payment>() {
+                    });
         } catch (WebApplicationException | ProcessingException e) {
             log.severe(e.getMessage());
             throw new InternalServerErrorException(e);
         }
 
-        return user;
+
     }
 
     private void beginTx() {
