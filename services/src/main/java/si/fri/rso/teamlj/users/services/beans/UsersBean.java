@@ -258,24 +258,27 @@ public class UsersBean {
             return null;
         }
 
-        try {
-            beginTx();
-            u.setInUse(false);
-            commitTx();
-        } catch (Exception e) {
-            rollbackTx();
-        }
+        if(u.getInUse()) {
 
-        try {
-            httpClient
-                    .target(baseUrl.get()  + "/v1/rents/returnabike/" + userId + "/" + rentId + "/" + mapId)
+            try {
+                beginTx();
+                u.setInUse(false);
+                commitTx();
+            } catch (Exception e) {
+                rollbackTx();
+            }
+
+            try {
+                httpClient
+                        .target(baseUrl.get() + "/v1/rents/returnabike/" + userId + "/" + rentId + "/" + mapId)
 //                    .target("http://localhost:8081/v1/rents/returnabike/" + userId + "/" + rentId + "/" + mapId)
-                    .request()
-                    .build("PUT", Entity.json(""))
-                    .invoke();
-        } catch (WebApplicationException | ProcessingException e) {
-            log.severe(e.getMessage());
-            throw new InternalServerErrorException(e);
+                        .request()
+                        .build("PUT", Entity.json(""))
+                        .invoke();
+            } catch (WebApplicationException | ProcessingException e) {
+                log.severe(e.getMessage());
+                throw new InternalServerErrorException(e);
+            }
         }
 
         return u;
