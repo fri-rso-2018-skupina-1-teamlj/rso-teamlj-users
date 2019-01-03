@@ -5,6 +5,9 @@ import com.kumuluz.ee.discovery.annotations.DiscoverService;
 import com.kumuluz.ee.rest.beans.QueryParameters;
 import com.kumuluz.ee.rest.utils.JPAUtils;
 
+import org.eclipse.microprofile.faulttolerance.CircuitBreaker;
+import org.eclipse.microprofile.faulttolerance.Fallback;
+import org.eclipse.microprofile.faulttolerance.Timeout;
 import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.metrics.annotation.Counted;
 
@@ -28,6 +31,8 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import java.time.temporal.ChronoUnit;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -65,11 +70,20 @@ public class UsersBean {
 
 	@Timed(name = "get_users_timed")
     @Counted(name = "get_users_counter")
+    @CircuitBreaker(requestVolumeThreshold = 3)
+    @Timeout(value = 2, unit = ChronoUnit.SECONDS)
+    @Fallback(fallbackMethod = "getUsersFallback")
     public List<User> getUsers() {
 
         TypedQuery<User> query = em.createNamedQuery("User.getAll", User.class);
 
         return query.getResultList();
+
+    }
+
+    public List<User> getUsersFallback() {
+
+        return Collections.emptyList();
 
     }
 
@@ -85,19 +99,48 @@ public class UsersBean {
 
     @Timed(name = "get_user_timed")
 	@Counted(name = "get_user_counter")
+    @CircuitBreaker(requestVolumeThreshold = 3)
+    @Timeout(value = 2, unit = ChronoUnit.SECONDS)
+    @Fallback(fallbackMethod = "getUserFallback")
     public User getUser(Integer userId) {
 
         User user = em.find(User.class, userId);
 
         if (user == null) {
-            log.warning("user do not exist/user was deleted");
-            throw new NotFoundException();
+            log.warning("user do not exist/user was deleted - method getUser");
+            //throw new NotFoundException();
         }
 
         List<BikeRent> rents = usersBean.getRents(userId);
         user.setRents(rents);
 
         return user;
+    }
+
+    @CircuitBreaker(requestVolumeThreshold = 3)
+    @Timeout(value = 2, unit = ChronoUnit.SECONDS)
+    @Fallback(fallbackMethod = "getUserFallbackEmpty")
+    public User getUserFallback(Integer userId) {
+
+        User user = em.find(User.class, userId);
+
+        if (user == null) {
+            log.warning("user do not exist/user was deleted - method getUserFallback");
+            //throw new NotFoundException();
+        }
+
+        user.setRents(Collections.emptyList());
+
+        return user;
+
+    }
+
+    public User getUserFallbackEmpty(Integer userId) {
+
+        log.warning("user do not exist/user was deleted - method getUserFallbackEmpty");
+
+        return new User();
+
     }
 
     public User createUser(User user) {

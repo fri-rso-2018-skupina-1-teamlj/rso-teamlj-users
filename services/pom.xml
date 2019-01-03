@@ -53,6 +53,11 @@
         </dependency>
 
         <dependency>
+            <groupId>com.kumuluz.ee.fault.tolerance</groupId>
+            <artifactId>kumuluzee-fault-tolerance-hystrix</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>si.fri.teamlj.users</groupId>
             <artifactId>users-models</artifactId>
         </dependency>
