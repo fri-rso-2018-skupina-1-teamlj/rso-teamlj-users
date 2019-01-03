@@ -9,12 +9,12 @@ kumuluzee:
       port: 8080
   datasources:
     - jndi-name: jdbc/UsersDS
-      #connection-url: jdbc:postgresql://localhost:5432/userTable
-      #username: dbuser
-      #password: postgres
-      connection-url: jdbc:postgresql://35.228.47.159:5432/userTable
-      username: rso
-      password: rso
+      connection-url: jdbc:postgresql://localhost:5432/userTable
+      username: dbuser
+      password: postgres
+      #connection-url: jdbc:postgresql://35.228.47.159:5432/userTable
+      #username: rso
+      #password: rso
       max-pool-size: 20
   config:
     etcd:
@@ -30,6 +30,10 @@ kumuluzee:
     checks:
       data-source-health-check:
         jndi-name: jdbc/UsersDS
+      disk-space-health-check:
+        threshold: 100000000
+      etcd-health-check:
+        connection-url: http://localhost:2379/health
   app-properties:
     external-services:
       enabled: false

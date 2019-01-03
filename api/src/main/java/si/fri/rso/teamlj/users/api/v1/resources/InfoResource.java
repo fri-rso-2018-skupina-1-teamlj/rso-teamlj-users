@@ -35,7 +35,7 @@ public class InfoResource {
     }
 
     @POST
-    @Path("healthy")
+    @Path("/healthy")
     public Response setHealth(HealthDto health) {
         appProperties.setHealthy(health.getHealthy());
         log.info("Setting health to " + health.getHealthy());

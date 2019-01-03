@@ -6,6 +6,7 @@ import com.kumuluz.ee.rest.beans.QueryParameters;
 import com.kumuluz.ee.rest.utils.JPAUtils;
 
 import org.eclipse.microprofile.metrics.annotation.Timed;
+import org.eclipse.microprofile.metrics.annotation.Counted;
 
 import si.fri.rso.teamlj.users.models.dtos.BikeRent;
 import si.fri.rso.teamlj.users.models.dtos.Payment;
@@ -79,6 +80,7 @@ public class UsersBean {
         return JPAUtils.queryEntities(em, User.class, queryParameters);
     }
 
+	@Counted(name = "get_user_counter")
     public User getUser(Integer userId) {
 
         User user = em.find(User.class, userId);
