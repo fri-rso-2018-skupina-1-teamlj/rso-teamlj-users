@@ -32,6 +32,7 @@
         <kumuluzee-fault-tolerance.version>1.0.1</kumuluzee-fault-tolerance.version>
         
         <postgresql.version>42.2.5</postgresql.version>
+        <postgres-socket-factory.version>1.0.11</postgres-socket-factory.version>
     </properties>
 
     <dependencyManagement>
@@ -95,7 +96,7 @@
             <dependency>
 				<groupId>com.google.cloud.sql</groupId>
 				<artifactId>postgres-socket-factory</artifactId>
-				<version>1.0.11</version>
+                <version>${postgres-socket-factory.version}</version>
 			</dependency>
 
             <dependency>

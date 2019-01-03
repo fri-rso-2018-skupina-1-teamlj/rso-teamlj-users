@@ -211,12 +211,6 @@ public class UsersBean {
 
     public User rent(Integer userId, Integer bikeId)
     {
-        /** TODO :
-         * - (preveri, če user exist) --- no
-         * - (preveri, če bike exist) --- no
-         * - preveri, da uporabnik, še nima izposojenega kolesa --- jes
-         * - PREVERI, ČE IMA USER NAROČNINO -- PAYMENT
-         */
 
         User u = em.find(User.class, userId);
 
