@@ -63,7 +63,8 @@ public class UsersBean {
         //baseUrl = "http://localhost:8081"; // only for demonstration
     }
 
-	@Timed
+	@Timed(name = "get_users_timed")
+    @Counted(name = "get_users_counter")
     public List<User> getUsers() {
 
         TypedQuery<User> query = em.createNamedQuery("User.getAll", User.class);
@@ -72,6 +73,8 @@ public class UsersBean {
 
     }
 
+    @Timed(name = "get_users_filtered_timed")
+    @Counted(name = "get_users_filtered_counter")
     public List<User> getUsersFilter(UriInfo uriInfo) {
 
         QueryParameters queryParameters = QueryParameters.query(uriInfo.getRequestUri().getQuery()).defaultOffset(0)
@@ -80,6 +83,7 @@ public class UsersBean {
         return JPAUtils.queryEntities(em, User.class, queryParameters);
     }
 
+    @Timed(name = "get_user_timed")
 	@Counted(name = "get_user_counter")
     public User getUser(Integer userId) {
 
