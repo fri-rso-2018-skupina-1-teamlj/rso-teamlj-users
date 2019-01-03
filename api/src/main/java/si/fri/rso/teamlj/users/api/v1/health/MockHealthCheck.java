@@ -16,6 +16,7 @@ public class MockHealthCheck implements HealthCheck {
     @Inject
     private AppProperties appProperties;
 
+    @Override
     public HealthCheckResponse call() {
 
         HealthCheckResponseBuilder healthCheckResponseBuilder =

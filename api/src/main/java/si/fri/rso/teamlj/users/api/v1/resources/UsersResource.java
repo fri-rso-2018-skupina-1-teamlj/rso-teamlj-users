@@ -1,9 +1,11 @@
 package si.fri.rso.teamlj.users.api.v1.resources;
 
+import com.kumuluz.ee.logs.cdi.Log;
 import si.fri.rso.teamlj.users.models.dtos.Payment;
 import si.fri.rso.teamlj.users.models.entities.User;
 import si.fri.rso.teamlj.users.services.beans.UsersBean;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -14,8 +16,9 @@ import javax.ws.rs.core.UriInfo;
 import java.util.List;
 import java.util.logging.Logger;
 
-@RequestScoped
+@ApplicationScoped
 @Path("/users")
+@Log
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class UsersResource {
