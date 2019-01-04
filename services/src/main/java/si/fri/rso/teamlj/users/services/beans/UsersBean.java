@@ -218,15 +218,7 @@ public class UsersBean {
             return null;
         }
 
-        if(!u.getInUse()) {
-
-            try {
-                beginTx();
-                u.setInUse(true);
-                commitTx();
-            } catch (Exception e) {
-                rollbackTx();
-            }
+        if(!u.getInUse() && !subscribed(u.getId()).equals("Ni veljavne naročnine")) {
 
             try {
                 httpClient
@@ -238,6 +230,14 @@ public class UsersBean {
             } catch (WebApplicationException | ProcessingException e) {
                 log.severe(e.getMessage());
                 throw new InternalServerErrorException(e);
+            }
+
+            try {
+                beginTx();
+                u.setInUse(true);
+                commitTx();
+            } catch (Exception e) {
+                rollbackTx();
             }
         }
 
@@ -255,14 +255,6 @@ public class UsersBean {
         if(u.getInUse()) {
 
             try {
-                beginTx();
-                u.setInUse(false);
-                commitTx();
-            } catch (Exception e) {
-                rollbackTx();
-            }
-
-            try {
                 httpClient
                         .target(baseUrl.get() + "/v1/rents/returnabike/" + userId + "/" + rentId + "/" + mapId)
 //                    .target("http://localhost:8081/v1/rents/returnabike/" + userId + "/" + rentId + "/" + mapId)
@@ -272,6 +264,14 @@ public class UsersBean {
             } catch (WebApplicationException | ProcessingException e) {
                 log.severe(e.getMessage());
                 throw new InternalServerErrorException(e);
+            }
+
+            try {
+                beginTx();
+                u.setInUse(false);
+                commitTx();
+            } catch (Exception e) {
+                rollbackTx();
             }
         }
 
