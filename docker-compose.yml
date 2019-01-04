@@ -9,7 +9,7 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: userTable
   rso-users:
-    image: ls8856/rso-teamlj-users:2.6
+    image: ls8856/rso-teamlj-users:2.7
     ports:
     - 8080:8080
     environment:
