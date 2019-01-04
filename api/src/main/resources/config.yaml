@@ -34,10 +34,6 @@ kumuluzee:
         threshold: 100000000
       #etcd-health-check:
       #  connection-url: http://localhost:2379/health
-  app-properties:
-    external-services:
-      enabled: false
-    healthy: true
   logs:
     config-file: '<?xml version="1.0" encoding="UTF-8"?>
                       <Configuration name="users">
@@ -58,3 +54,7 @@ kumuluzee:
                               </Root>
                           </Loggers>
                       </Configuration>'
+app-properties:
+  external-services:
+    enabled: false
+  healthy: true

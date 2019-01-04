@@ -1,3 +1,3 @@
-INSERT INTO userTable (date_of_birth, first_name, last_name, address, email) VALUES (TIMESTAMP '2006-01-01 15:36:38', 'James', 'Smith', '32 Threadneedle Street, London', 'james.smith@gmail.com');
-INSERT INTO userTable (date_of_birth, first_name, last_name, address, email) VALUES (TIMESTAMP '2009-03-17 15:36:38', 'John', 'Williams', '21 Foster Lane, London', 'john.williams@gmail.com');
-INSERT INTO userTable (date_of_birth, first_name, last_name, address, email) VALUES (TIMESTAMP '2013-11-29 15:36:38', 'Robert', 'Jones', '11 Ludgate Hill, London', 'robert.jones@gmail.com');
+INSERT INTO userTable (date_of_birth, first_name, last_name, address, email) VALUES (TIMESTAMP '2006-01-01 15:36:38', 'Ladislav', 'Škufca', '32 Threadneedle Street, London', 'robert.jones1@gmail.com');
+INSERT INTO userTable (date_of_birth, first_name, last_name, address, email) VALUES (TIMESTAMP '2009-03-17 15:36:38', 'Julija', 'Petrič', '21 Foster Lane, London', 'robert.jones2@gmail.com');
+INSERT INTO userTable (date_of_birth, first_name, last_name, address, email) VALUES (TIMESTAMP '2013-11-29 15:36:38', 'Robert', 'Jones', '11 Ludgate Hill, London', 'robert.jones3@gmail.com');
