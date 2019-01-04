@@ -71,7 +71,7 @@ public class UsersBean {
 	@Timed(name = "get_users_timed")
     @Counted(name = "get_users_counter")
     @CircuitBreaker(requestVolumeThreshold = 3)
-    @Timeout(value = 2, unit = ChronoUnit.SECONDS)
+    @Timeout(value = 5, unit = ChronoUnit.SECONDS)
     @Fallback(fallbackMethod = "getUsersFallback")
     public List<User> getUsers() {
 
@@ -100,7 +100,7 @@ public class UsersBean {
     @Timed(name = "get_user_timed")
 	@Counted(name = "get_user_counter")
     @CircuitBreaker(requestVolumeThreshold = 3)
-    @Timeout(value = 2, unit = ChronoUnit.SECONDS)
+    @Timeout(value = 5, unit = ChronoUnit.SECONDS)
     @Fallback(fallbackMethod = "getUserFallback")
     public User getUser(Integer userId) {
 
@@ -118,7 +118,7 @@ public class UsersBean {
     }
 
     @CircuitBreaker(requestVolumeThreshold = 3)
-    @Timeout(value = 2, unit = ChronoUnit.SECONDS)
+    @Timeout(value = 5, unit = ChronoUnit.SECONDS)
     @Fallback(fallbackMethod = "getUserFallbackEmpty")
     public User getUserFallback(Integer userId) {
 
